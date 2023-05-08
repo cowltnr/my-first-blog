@@ -1,4 +1,15 @@
 {% extends 'blog/base.html' %}
+{% load static %}
+
+{% for post in posts %}
+<div>
+    <div>
+        <p>{{ post.title }}</p>
+        <p>{{ post.content }}</p>
+
+    </div>
+</div>
+{% endfor %}
 
 {% block content %}
     <div class="post">
@@ -6,11 +17,19 @@
             <div class="date">
                 {{ post.published_date }}
             </div>
+
+            </div>
         {% endif %}
-        {% if user.is_authenticated %}
-            <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+{% if user.is_authenticated %}
+    <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    {% endif %}
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.text|linebreaksbr }}</p>
+        {% if post.img %}
+          <img src="{{ post.img.url}}" alt="connect" style="max-height:300px">
         {% endif %}
-            <h1>{{ post.title }}</h1>
-            <p>{{ post.text|linebreaksbr }}</p>
-    </div>
+
+  <div class="iframe-container">
+  <div id="player"></div>
+</div>
 {% endblock %}
