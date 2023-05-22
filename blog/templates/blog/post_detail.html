@@ -1,15 +1,4 @@
 {% extends 'blog/base.html' %}
-{% load static %}
-
-{% for post in posts %}
-<div>
-    <div>
-        <p>{{ post.title }}</p>
-        <p>{{ post.content }}</p>
-
-    </div>
-</div>
-{% endfor %}
 
 {% block content %}
     <div class="post">
@@ -17,19 +6,16 @@
             <div class="date">
                 {{ post.published_date }}
             </div>
-
-            </div>
         {% endif %}
-{% if user.is_authenticated %}
-    <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-    {% endif %}
-        <h1>{{ post.title }}</h1>
-        <p>{{ post.text|linebreaksbr }}</p>
-        {% if post.img %}
-          <img src="{{ post.img.url}}" alt="connect" style="max-height:300px">
+        {% if user.is_authenticated %}
+            <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
         {% endif %}
-
-  <div class="iframe-container">
-  <div id="player"></div>
-</div>
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.author }} - {{ post.creted_date }}</p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/89D4XHr_fqc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        {% if post.image %}
+            <img src ="{{ post.image.url }}" alt="connect" style="max-height: 300px">
+        {% endif %}
+            <p>{{ post.text|linebreaksbr }}</p>
+    </div>
 {% endblock %}
