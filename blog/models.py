@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from embed_video.fields import EmbedVideoField
 
 
 class Post(models.Model):
@@ -8,13 +9,11 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
     img = models.ImageField(blank=True, null=True, upload_to="images/")
+    video = EmbedVideoField(blank=True)
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(
             blank=True, null=True)
-    video = models.CharField(max_length=500, blank=True, null=True)
-
-
 
     def publish(self):
         self.published_date = timezone.now()
